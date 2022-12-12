@@ -4,12 +4,11 @@
  реализована логика по сохранению и изменению количества шагов,
  а так же рассчитывается статистика.
 */
-import  java.util.Scanner; // имопорт сканера
+
 public class StepTracker {
     int stepTarget = 10000; // целевое значение шагов в день
-    Scanner scanner = new Scanner(System.in); // создание объекта класса Scanner
-    Converter converter = new Converter(); // создание объекта класса Converter
-    MonthData[] monthToData; // массив для связывания месяца и данных по нему.
+    MonthData[] monthToData; // объявление массива для связывания месяца и данных по нему.
+
     public StepTracker() {          // метод для создания 12 месяцев по 30 дней в каждом
         monthToData = new MonthData[12];
         for (int i = 0; i < monthToData.length; i++) {
@@ -17,85 +16,24 @@ public class StepTracker {
         }
     }
 
-    public void setNewTarget () { // метод изменения целевого значения шагов в день
-        System.out.println("Целевое значение шагов в день составляет: " + stepTarget + ". ");
-        System.out.println("Укажите новое целевое значение шагов в день: ");
-        int newTarget = scanner.nextInt();
-        while (true) {
-            if (newTarget < 0) {
-                System.out.println("Ошбика! Целевое значение должно быть больше нуля!");
-                System.out.println("Повтрно укажите новое целевое значение шагов в день:");
-                newTarget = scanner.nextInt();
-            }
-            stepTarget = newTarget;
-            System.out.println("Новое целовое значение успешно сохранено! Теперь оно составляет: " + stepTarget + " шагов в день.");
-            break;
-        }
+    public void setNewTarget (int newTarget) { // метод изменения целевого значения шагов в день
+        System.out.println("Старое целевое значение: " + stepTarget);
+        stepTarget = newTarget;
+        System.out.println("Новое целевое значение шагов в день:" + stepTarget);
     }
 
-    public void saveStepsInBase () { // метод для сохранения в конкретном месяце, контретном дне, конкретного числа шагов
-        int monthN;
-        int dayN;
-        int stepsN;
-
-        while (true) {
-            System.out.println("Введите номер месяца от 1 до 12.");
-            monthN = scanner.nextInt();
-
-            if (monthN-1 < 0) {
-                System.out.println("Ошбика! Некорректное значение! Выберите месяц от 1 до 12.");
-            } else if (monthN-1 > 12) {
-                System.out.println("Ошбика! Значение превышено! Выберите месяц от 1 до 12.");
-            } else {
-                break;
-            }
-        }
-
-        while (true) {
-            System.out.println("Введите номер дня от 1 до 30.");
-            dayN = scanner.nextInt();
-            if (dayN-1 < 0) {
-                System.out.println("Ошбика! Некорректное значение! Выберите месяц от 1 до 30.");
-            } else if (dayN-1 > 30) {
-                System.out.println("Ошбика! Значение превышено! Выберите месяц от 1 до 30.");
-            } else {
-                break;
-            }
-        }
-
-        while (true) {
-            System.out.println("Введите число шагов, пройденных в этот день.");
-            stepsN = scanner.nextInt();
-            if (stepsN < 0) {
-                System.out.println("Ошбика! Отрицательное значение! Минимальное значение шагов может быть ноль.");
-            } else {
-                break;
-            }
-        }
-
-        monthToData[monthN-1].stepsInDay(dayN, stepsN);
+    public void saveStepsInBase (int monthN, int dayN, int stepsN) { // метод для сохранения в конкретном месяце, конкретном дне, конкретного числа шагов
+        monthToData[monthN].stepsInDay(dayN, stepsN);
         System.out.println("Месяц: " + monthN +", день: " + dayN + ", шагов пройдено: " + stepsN + ". Данные успешно сохранены!");
     }
 
-    public void statInMonth () { // метод вывода статистики за указанный месяц
-        int monthN;
-        while (true) {
-            System.out.println("Введите номер месяца от 1 до 12 за который необходимо показать данные: ");
-            monthN = scanner.nextInt();
-
-            if (monthN - 1 < 0) {
-                System.out.println("Ошбика! Некорректное значение! Выберите месяц от 1 до 12.");
-            } else if (monthN - 1 > 12) {
-                System.out.println("Ошбика! Значение превышено! Выберите месяц от 1 до 12.");
-            } else {
-                break;
-            }
-        }
-        monthToData[monthN-1].stepsInMonth(); // вывод кол-ва шагов за каждый день указанного месяца
-        monthToData[monthN-1].summStepsInMonth(); // вывод суммы кол-ва шагов за каждый день указанного месяца
-        monthToData[monthN-1].maximumStepsInMonth(); // вывод лушего по кол-ву шагов результата за месяц
-        monthToData[monthN-1].middleStepsInMonth(); // вывод среднего числа шагов в день за месяц
-        monthToData[monthN-1].bestSeriesInMonth(stepTarget); // вывод лучшей серии подряд дней выполнения или перевыодлнения цели
+    public void statInMonth (int monthN) { // метод вывода статистики за указанный месяц
+        System.out.println("Вывод статистики за месяц " + monthN + " :");
+        monthToData[monthN].stepsInMonth(); // вывод кол-ва шагов за каждый день указанного месяца
+        monthToData[monthN].sumStepsInMonth(); // вывод суммы кол-ва шагов за каждый день указанного месяца
+        monthToData[monthN].maximumStepsInMonth(); // вывод лучшего по кол-ву шагов результата за месяц
+        monthToData[monthN].middleStepsInMonth(); // вывод среднего числа шагов в день за месяц
+        monthToData[monthN].bestSeriesInMonth(stepTarget); // вывод лучшей серии подряд дней выполнения или перевыполнения цели
         System.out.println("Молодцом!");
     }
 
@@ -103,7 +41,7 @@ public class StepTracker {
         // Заполните класс самостоятельно
         int[] month = new int[30]; // объявление массива с днями
 
-        public void stepsInDay(int day, int steps) { // метод присвоения конкретному дню кол-ва пройденых шагов
+        public void stepsInDay(int day, int steps) { // метод присвоения конкретному дню кол-ва пройденных шагов
             month[day-1] = steps;
         }
 
@@ -115,17 +53,17 @@ public class StepTracker {
             System.out.println("Конец месяца.");
         }
 
-        public void summStepsInMonth() { // метод подсчета кол-ва шагов, ККал , км за месяц
-            int summ = 0;
+        public void sumStepsInMonth() { // метод подсчета кол-ва шагов, ККал, км за месяц
+            int sum = 0;
             Converter converter = new Converter(); // создаём объект класса Converter
 
             for (int i = 0; i < month.length; i++) {
-                summ = summ + month[i];
+                sum = sum + month[i];
             }
             System.out.println("За указанный месяц: ");
-            System.out.println("Шагов пройдено: " + summ + "; ");
-            System.out.println("Общее пройденное расстояние в км: " + converter.stepsToKM(summ) + "; ");
-            System.out.println("Потрачено ККал: " + converter.stepsToKCal(summ) + "; ");
+            System.out.println("Шагов пройдено: " + sum + "; ");
+            System.out.println("Общее пройденное расстояние в км: " + converter.stepsToKM(sum) + "; ");
+            System.out.println("Потрачено ККал: " + converter.stepsToKCal(sum) + "; ");
             System.out.println("Молодец! Так держать!");
         }
 
@@ -152,15 +90,21 @@ public class StepTracker {
             int bestSeries = 0;
             for (int i = 0; i < month.length; i++) {
                 if (month[i] >= stepTarget) {
-                    dayInARow = dayInARow + 1; // если цель в день достигнута то счётчик прибавляет единицу
+                    dayInARow = dayInARow + 1; // если цель в день достигнута, то счётчик прибавляет единицу
                 } else {
                     if (dayInARow > bestSeries) {
-                        bestSeries = dayInARow; // если было несколько дней подряд то сохраняется как лучшая серия
+                        bestSeries = dayInARow; // если было несколько дней подряд, то сохраняется как лучшая серия
                     }
-                    dayInARow = 0;    // если не достигнута то обнуляется
+                    dayInARow = 0;    // если не достигнута, то обнуляется
                 }
             }
-            System.out.println("Лучшая серия дней подряд по выполнию цели за месяц: " + bestSeries);
+
+            if (dayInARow !=0 ) {           // дополнительный блок для выбора наибольшей серии дней (если их было несколько)
+                if (dayInARow > bestSeries) {
+                    bestSeries = dayInARow;
+                }
+            }
+            System.out.println("Лучшая серия дней подряд по выполнению цели за месяц: " + bestSeries);
         }
     }
 }
