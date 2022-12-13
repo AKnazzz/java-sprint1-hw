@@ -46,11 +46,19 @@ public class StepTracker {
         }
 
         public void stepsInMonth() { // метод по выводу статистики по шагам за месяц по дням (в форме указанной в ТЗ)
+            System.out.println(" ");
             System.out.println("Количество пройденных шагов по дням за выбранный месяц: ");
+
             for (int i = 0; i < month.length; i++) {
-                System.out.print((i + 1) + " день: " + month[i] + "; ");
+                String space;
+                if (i<(month.length-1)) {
+                    space = ", ";
+                    System.out.print((i + 1) + " день: " + month[i] + space);
+                }if (i==(month.length-1)){
+                    space = "; ";
+                    System.out.println((i + 1) + " день: " + month[i] + space);
+                }
             }
-            System.out.println("Конец месяца.");
         }
 
         public void sumStepsInMonth() { // метод подсчета кол-ва шагов, ККал, км за месяц
@@ -60,6 +68,7 @@ public class StepTracker {
             for (int i = 0; i < month.length; i++) {
                 sum = sum + month[i];
             }
+            System.out.println("  ");
             System.out.println("За указанный месяц: ");
             System.out.println("Шагов пройдено: " + sum + "; ");
             System.out.println("Общее пройденное расстояние в км: " + converter.stepsToKM(sum) + "; ");

@@ -87,8 +87,6 @@ public class Main {
                     break;
                 }
 
-            } else if (userInput == 0) {
-                break;
             } else {
                 System.out.println("Введена некорректная команда.");
             }
