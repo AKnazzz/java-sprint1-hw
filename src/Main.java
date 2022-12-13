@@ -36,7 +36,7 @@ public class Main {
                     dayN = scanner.nextInt();
                     if (dayN-1 < 0) {
                         System.out.println("Ошибка! Указано некорректное значение! Введите номер дня в диапазоне от 1 до 30.");
-                    } else if (dayN-1 > 30) {
+                    } else if (dayN-1 > 29) {
                         System.out.println("Ошибка! Превышение допустимого значения! Введите номер дня в диапазоне от 1 до 30.");
                     } else {
                         break;
