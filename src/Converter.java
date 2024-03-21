@@ -7,13 +7,13 @@ public class Converter {
     double mSteps = 0.75; // коэффициент для перевода шагов в метры (1 шаг = 75 см)
     double сalStep = 50; // коэффициент для перевода шагов в калории (1 шаг = 50 калорий)
 
-    public double stepsToKM (int steps){   // метод перевода шагов в километры (km)
-        double km = steps * mSteps/1000;
+    public double stepsToKM(int steps) {   // метод перевода шагов в километры (km)
+        double km = steps * mSteps / 1000;
         return km;
     }
 
-    public double stepsToKCal (int steps){ // метод перевода шагов в Килокалории (kCal)
-        double kCal = steps*сalStep / 1000;
+    public double stepsToKCal(int steps) { // метод перевода шагов в Килокалории (kCal)
+        double kCal = steps * сalStep / 1000;
         return kCal;
     }
 

@@ -1,9 +1,9 @@
 /**
-Это класс с основной логикой приложения — в нём хранится информация
- о пройденных шагах,
- реализована логика по сохранению и изменению количества шагов,
- а так же рассчитывается статистика.
-*/
+ * Это класс с основной логикой приложения — в нём хранится информация
+ * о пройденных шагах,
+ * реализована логика по сохранению и изменению количества шагов,
+ * а так же рассчитывается статистика.
+ */
 
 public class StepTracker {
     int stepTarget = 10000; // целевое значение шагов в день
@@ -16,18 +16,18 @@ public class StepTracker {
         }
     }
 
-    public void setNewTarget (int newTarget) { // метод изменения целевого значения шагов в день
+    public void setNewTarget(int newTarget) { // метод изменения целевого значения шагов в день
         System.out.println("Старое целевое значение: " + stepTarget);
         stepTarget = newTarget;
         System.out.println("Новое целевое значение шагов в день:" + stepTarget);
     }
 
-    public void saveStepsInBase (int monthN, int dayN, int stepsN) { // метод для сохранения в конкретном месяце, конкретном дне, конкретного числа шагов
+    public void saveStepsInBase(int monthN, int dayN, int stepsN) { // метод для сохранения в конкретном месяце, конкретном дне, конкретного числа шагов
         monthToData[monthN].stepsInDay(dayN, stepsN);
-        System.out.println("Месяц: " + monthN +", день: " + dayN + ", шагов пройдено: " + stepsN + ". Данные успешно сохранены!");
+        System.out.println("Месяц: " + monthN + ", день: " + dayN + ", шагов пройдено: " + stepsN + ". Данные успешно сохранены!");
     }
 
-    public void statInMonth (int monthN) { // метод вывода статистики за указанный месяц
+    public void statInMonth(int monthN) { // метод вывода статистики за указанный месяц
         System.out.println("Вывод статистики за месяц " + monthN + " :");
         monthToData[monthN].stepsInMonth(); // вывод кол-ва шагов за каждый день указанного месяца
         monthToData[monthN].sumStepsInMonth(); // вывод суммы кол-ва шагов за каждый день указанного месяца
@@ -42,7 +42,7 @@ public class StepTracker {
         int[] month = new int[30]; // объявление массива с днями
 
         public void stepsInDay(int day, int steps) { // метод присвоения конкретному дню кол-ва пройденных шагов
-            month[day-1] = steps;
+            month[day - 1] = steps;
         }
 
         public void stepsInMonth() { // метод по выводу статистики по шагам за месяц по дням (в форме указанной в ТЗ)
@@ -51,10 +51,11 @@ public class StepTracker {
 
             for (int i = 0; i < month.length; i++) {
                 String space;
-                if (i<(month.length-1)) {
+                if (i < (month.length - 1)) {
                     space = ", ";
                     System.out.print((i + 1) + " день: " + month[i] + space);
-                }if (i==(month.length-1)){
+                }
+                if (i == (month.length - 1)) {
                     space = "; ";
                     System.out.println((i + 1) + " день: " + month[i] + space);
                 }
@@ -108,7 +109,7 @@ public class StepTracker {
                 }
             }
 
-            if (dayInARow !=0 ) {           // дополнительный блок для выбора наибольшей серии дней (если их было несколько)
+            if (dayInARow != 0) {           // дополнительный блок для выбора наибольшей серии дней (если их было несколько)
                 if (dayInARow > bestSeries) {
                     bestSeries = dayInARow;
                 }

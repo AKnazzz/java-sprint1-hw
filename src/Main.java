@@ -1,4 +1,5 @@
-import  java.util.Scanner; // импортируем сканер
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -22,9 +23,9 @@ public class Main {
                     System.out.println("Введите номер месяца от 0 (ЯНВАРЬ) до 11 (ДЕКАБРЬ).");
                     monthN = scanner.nextInt();
 
-                    if (monthN< 0) {
+                    if (monthN < 0) {
                         System.out.println("Ошибка! Указано отрицательное значение! Выберите месяц от 0 (ЯНВАРЬ) до 11 (ДЕКАБРЬ).");
-                    } else if (monthN>= 12) {
+                    } else if (monthN >= 12) {
                         System.out.println("Ошибка! Превышение допустимого значения! Выберите месяц от 0 (ЯНВАРЬ) до 11 (ДЕКАБРЬ).");
                     } else {
                         break;
@@ -34,9 +35,9 @@ public class Main {
                 while (true) {
                     System.out.println("Введите номер дня в указанном месяце от 1 до 30.");
                     dayN = scanner.nextInt();
-                    if (dayN-1 < 0) {
+                    if (dayN - 1 < 0) {
                         System.out.println("Ошибка! Указано некорректное значение! Введите номер дня в диапазоне от 1 до 30.");
-                    } else if (dayN-1 > 29) {
+                    } else if (dayN - 1 > 29) {
                         System.out.println("Ошибка! Превышение допустимого значения! Введите номер дня в диапазоне от 1 до 30.");
                     } else {
                         break;
@@ -44,8 +45,8 @@ public class Main {
                 }
 
                 while (true) {
-                    System.out.println("Выбрана дата: день:" + dayN + " месяц:" + (monthN+1));
-                    System.out.println ("Введите количество пройденных шагов: ");
+                    System.out.println("Выбрана дата: день:" + dayN + " месяц:" + (monthN + 1));
+                    System.out.println("Введите количество пройденных шагов: ");
                     stepsN = scanner.nextInt();
                     if (stepsN < 0) {
                         System.out.println("Ошибка! Указано отрицательное значение! Минимальное значение шагов может быть равно нулю.");
