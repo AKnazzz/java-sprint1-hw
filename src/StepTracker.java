@@ -37,65 +37,69 @@ public class StepTracker {
         System.out.println("Молодцом!");
     }
 
-    class MonthData { // класс для создания объектов месяцев = создаёт отдельный массив на 30 дней
-        // Заполните класс самостоятельно
-        int[] month = new int[30]; // объявление массива с днями
+    class MonthData {
 
-        public void stepsInDay(int day, int steps) { // метод присвоения конкретному дню кол-ва пройденных шагов
+        private int[] month = new int[30]; // массив с днями
+
+        public void stepsInDay(int day, int steps) { // метод присвоения конкретному дню кол-ва шагов
+            if (day < 1 || day > 30 || steps < 0) {
+                System.out.println("Ошибка: некорректный день или количество шагов.");
+                return;
+            }
             month[day - 1] = steps;
         }
 
-        public void stepsInMonth() { // метод по выводу статистики по шагам за месяц по дням (в форме указанной в ТЗ)
-            System.out.println(" ");
-            System.out.println("Количество пройденных шагов по дням за выбранный месяц: ");
-
+        // метод вывода статистики по шагам за месяц по дням (в форме указанной в ТЗ)
+        public void stepsInMonth() {
+            StringBuilder result = new StringBuilder("Количество пройденных шагов по дням за выбранный месяц:\n");
             for (int i = 0; i < month.length; i++) {
-                String space;
-                if (i < (month.length - 1)) {
-                    space = ", ";
-                    System.out.print((i + 1) + " день: " + month[i] + space);
-                }
-                if (i == (month.length - 1)) {
-                    space = "; ";
-                    System.out.println((i + 1) + " день: " + month[i] + space);
+                result.append((i + 1)).append(" день: ").append(month[i]);
+                if (i < month.length - 1) {
+                    result.append(", ");
+                } else {
+                    result.append("; ");
                 }
             }
+            System.out.println(result);
         }
 
-        public void sumStepsInMonth() { // метод подсчета кол-ва шагов, ККал, км за месяц
+        // метод подсчета кол-ва шагов, ККал, км за месяц
+        public void sumStepsInMonth() {
             int sum = 0;
-            Converter converter = new Converter(); // создаём объект класса Converter
-
-            for (int i = 0; i < month.length; i++) {
-                sum = sum + month[i];
+            for (int steps : month) {
+                sum += steps;
             }
-            System.out.println("  ");
-            System.out.println("За указанный месяц: ");
-            System.out.println("Шагов пройдено: " + sum + "; ");
-            System.out.println("Общее пройденное расстояние в км: " + converter.stepsToKM(sum) + "; ");
-            System.out.println("Потрачено ККал: " + converter.stepsToKCal(sum) + "; ");
+
+            Converter converter = new Converter();
+
+            System.out.println("\nЗа указанный месяц:");
+            System.out.printf("Шагов пройдено: %d;\n", sum);
+            System.out.printf("Общее пройденное расстояние в км: %.2f;\n", converter.stepsToKilometers(sum));
+            System.out.printf("Потрачено ККал: %.2f;\n", converter.stepsToKilocalories(sum));
             System.out.println("Молодец! Так держать!");
         }
 
-        public void maximumStepsInMonth() { // метод вывода максимального числа шагов в день в указанном месяце
+        // метод вывода максимального числа шагов в день в указанном месяце
+        public void maximumStepsInMonth() {
             int maxSteps = 0;
-            for (int i = 0; i < month.length; i++) {
-                if (month[i] > maxSteps) {
-                    maxSteps = month[i];
-                }
+            for (int steps : month) {
+                maxSteps = Math.max(maxSteps, steps);
             }
-            System.out.println("Лучший результат за этот месяц:" + maxSteps + " шагов в день! ");
+            System.out.println("Лучший результат за этот месяц: " + maxSteps + " шагов в день!");
         }
 
-        public void middleStepsInMonth() { // метод нахождения среднего числа шагов в месяц
-            double middleSteps = 0;
-            for (int i = 0; i < month.length; i++) {
-                middleSteps = middleSteps + month[i];
+        // метод нахождения среднего числа шагов в месяц
+        public void middleStepsInMonth() {
+            double totalSteps = 0;
+            for (int steps : month) {
+                totalSteps += steps;
             }
-            System.out.println("Среднее значение пройденных шагов в день за указанный месяц составило: " + middleSteps / month.length + " ."); // возвращаем общее число шагов разделённое на кол-во дней в месяце
+            double average = totalSteps / month.length;
+            System.out.printf("Среднее значение пройденных шагов в день за указанный месяц составило: %.2f.\n", average);
         }
 
-        public void bestSeriesInMonth(int stepTarget) { // метод нахождения лучшей серии дней с выполнением заданной цели stepTarget (10000 шагов в день)
+        // метод нахождения лучшей серии дней с выполнением заданной цели stepTarget (10000 шагов в день)
+        public void bestSeriesInMonth(int stepTarget) {
             int dayInARow = 0;
             int bestSeries = 0;
             for (int i = 0; i < month.length; i++) {
